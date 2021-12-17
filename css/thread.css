@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+.thread_main_box{
+    background-color: #fff;
+    margin-bottom: 16px;
+
+}
+
+.thread_line{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.6rem;
+    background-color: #DFE2E6;
+    padding: 16px;
+}
+
+
+
+.thread_title{
+    margin-right: auto;
+}
+
+.thread_user{
+    text-decoration: underline;
+}
+
+.thread_time{
+    padding-left: 16px;
+    background-color: #DFE2E6;
+}
+
+.thread_time img{
+    width: 16px;
+    margin-right: 8px;
+}
+.thread_comment{
+    padding: 16px;
+    border: 8px solid #DFE2E6;
+}
+
+.thread_ansuser_box{
+    width: 960px;
+    background-color: #DFE2E6;
+}
+
+.thread_ansuser_name{
+    padding: 8px 16px;
+    text-decoration: underline;
+}
+
+.thread_ansuser_comment{
+    background-color: #fff;
+    padding: 16px;
+    border: 8px solid #DFE2E6;
+
+}
+
+.thread_ans_form{
+    padding: 16px;
+    border: 4px solid #DFE2E6;
+    margin-top: 40px;
+}
+
+.thread_ans_form p{
+    border-bottom: 4px solid #DFE2E6;
+}
+
+.thread_ans_form input[type="submit"]{
+    background-color: #DFE2E6;
+    width: 200px;
+    height: 40px;
+    padding: 4px;
+    text-align: center;
+}
+
+.thread_ans_form input[type="submit"]:hover{
+    background-color: #000;
+    color: #fff;
+
+}

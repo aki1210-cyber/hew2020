@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.comp_cont_wrap{
+    background-color: #fff;
+}
+
+.comp_cont_wrap p {
+    font-size: 2.4rem;
+    text-align: center;
+}
+
+.comp_cont_wrap a{
+    display: block;
+    text-align: center;
+    padding: 8px 0;
+}

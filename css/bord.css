@@ -1,0 +1,192 @@
+@charset "UTF-8";
+
+
+.shadowbox{
+    max-width: 1024px;
+    color: #61677C;
+    font-weight: bold;
+    box-shadow: -2px -2px 20px #FFF, 2px 2px 20px #BABECC;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    font-weight: 600;
+    margin: 0 auto;
+}
+
+.th_search_form{
+    width: 1024px;
+    height: 60px;
+    background-color: #f3f3f3;
+    margin: 32px auto;
+    display: flex;
+}
+
+.th_search_form input[type="text"]{
+    width: 90%;
+    font-size: 1.6rem;
+    text-align: left;
+    padding-left: 16px;
+}
+
+.th_search_form input[type="image"]{
+    background-color: #A9B39A;
+    padding: 8px;
+    margin-left: auto;
+}
+
+.test{
+    display: none;
+}
+/* リンク隠し */
+
+
+  
+
+
+  
+
+
+/* 新規投稿 */
+
+
+.tab_wrap{
+    color: #61677C;
+  font-weight: bold;
+  background-color: #fff;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 600;
+  max-width: 1024px;
+  margin: 0 auto;
+
+
+}
+
+
+.tab_ul{
+    display: flex;
+    justify-content: space-between;
+}
+
+.tab_ul li{
+    display: block;
+    width: 100%;
+
+}
+
+.tab{
+    display: block;
+    text-align: center;
+    font-size: 1.6rem;
+    padding: 16px 0;
+    border-bottom: 1px solid #EEE;
+    box-shadow: 0px 1px 0px #EEE;
+}
+
+
+.tab:hover{
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 600;
+    max-width: 1024px;
+    margin: 0 auto;
+    box-shadow: -5px -5px 10px #FFF, 5px 5px 20px #BABECC;
+}
+
+.tab:active{
+    background-color: #fff;
+    color: #000;
+    box-shadow: none;
+}
+
+/* TAB */
+
+
+#content{
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+.th_wrap{
+    width: 100%;
+    background-color: #fff;
+
+}
+
+.th_box{
+    width: 100%;
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+    
+}
+
+.th_box:hover{
+    transition: all 0.2s ease-in-out;
+    font-weight: 600;
+    max-width: 1024px;
+    box-shadow: -5px -5px 10px #FFF, 5px 5px 20px #BABECC;
+}
+
+.th_box:active{
+    background-color: #fff;
+    color: #000;
+    box-shadow: none;
+}
+
+.th_box:hover .title{
+    text-decoration: underline;
+}
+
+.th_img_box{
+    width: 50%;
+    display: flex;
+}
+
+.th_img_box img{
+    width: 20%;
+}
+
+.rside{
+    display: flex;
+}
+
+.newsub ul{
+    display: flex;
+    justify-content: space-between;
+}
+
+.newsub ul li{
+    font-size: 24px;
+}
+
+
+
+.icon{
+    width: 80px;
+    height: 80px;
+    border: solid #A9B39A;
+    border-bottom: 0px;
+}
+
+.title{
+    font-size: 1.6rem;
+    vertical-align: top;
+    margin-left: 24px;
+}
+
+.title{
+    width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+.name,.post_time{
+    margin-top: auto;
+    margin-right: 16px;
+}
+

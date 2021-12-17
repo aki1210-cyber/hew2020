@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+.buy_wrap{
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.buy_wrap th{
+    text-align: center;
+    width: 50%;
+}
+
+.buy_wrap td{
+    text-align: left;
+    width: 50%;
+}
+
+.buy_wrap th,td{
+    font-size: 1.4rem;
+}
+
+
+
+.buy_wrap img{
+    width: 60%;
+}
+
+.buy_button_box{
+    width: 200px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 80px;
+}
+
+.buy_button{
+    display: block;
+    font-size: 1.8rem;
+    padding: 8px;
+    background-color: #000;
+    color: #fff;
+}

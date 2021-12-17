@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+
+.newthread_form{
+    width: 1366px;
+    margin: 0 auto;
+}
+
+.newthread_form textarea{
+    background-color: #fff;
+}
+
+.newthread_box{
+    display: flex;
+    font-size: 1.6rem;
+    background-color: #DFE2E6;
+    padding: 8px;
+}
+
+.newthread_title{
+    display: flex;
+    align-items: center;
+    width: 70%;
+}
+
+.newthread_title input[type="text"]{
+    width: 80%;
+    background-color: #fff;
+    padding: 4px;
+}
+
+.newthread_category{
+    display: flex;
+    align-items: center;
+
+    width: 30%;
+}
+
+.newthread_textbox{
+}
+
+.newthread_textbox textarea{
+    width: 100%;
+    font-size: 1.4rem;
+    padding: 8px;
+    border-left: 8px solid #DFE2E6;
+    border-bottom: 8px solid #DFE2E6;
+    border-right: 8px solid #DFE2E6;
+}
+
+.newthread_category .newthread_select{
+    border-bottom: 4px solid #F5EEC4;
+}
+
+#newthread_submit{
+    display: block;
+    width: 200px;
+    height: 40px;
+    padding: 4px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    margin: 80px auto;
+}
+
+#newthread_submit:hover{
+    border: 2px solid #000;
+    color: #000;
+    background-color: #fff;
+}

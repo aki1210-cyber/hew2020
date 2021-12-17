@@ -1,0 +1,83 @@
+@charset "UTF-8";
+
+.shuppin_form{
+    border: 8px solid #f3f3f3;
+    padding: 16px;
+    font-size: 1.4rem;
+}
+
+.shuppin_form input,select,textarea{
+padding: 8px;
+font-size: 1.2rem;
+border-bottom: 2px solid #f5f5f5;
+}
+
+.shuppin_line{
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 40px;
+}
+
+
+
+.shuppin_left{
+    width: 10%;
+}
+
+.shuppin_title{
+ 
+
+}
+
+.shuppin_title input[type="text"]{
+width: 50%;
+}
+
+.shuppin_category select{
+    width: 200px;
+}
+
+.shuppin_plan{
+    align-items: center;
+}
+
+.shuppin_plan input{
+    margin-right: 24px;
+}
+
+.shuppin_image{
+    align-items: center;
+}
+
+.shuppin_image input{
+    border: none;
+}
+
+
+
+
+
+.shuppin_comment{
+    width: 100%;
+    align-items: flex-start;
+}
+
+.shuppin_comment textarea{
+    width: 50%;
+    height: 200px;
+    border: 1px solid #000;
+}
+
+.shuppin_submit{
+width: 200px;
+height: 40px;
+background-color: #000;
+text-align: center;
+color: #fff;
+}
+
+.shuppin_submit:hover{
+    background-color: #fff;
+    border: 2px solid #000;
+    color: #000;
+}

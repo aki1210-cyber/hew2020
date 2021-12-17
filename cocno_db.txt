@@ -1,0 +1,460 @@
+SET SESSION FOREIGN_KEY_CHECKS=0;
+
+DROP DATABASE cocno;
+
+CREATE DATABASE cocno  DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+use cocno;
+
+/* Drop Tables */
+
+DROP TABLE IF EXISTS admins;
+DROP TABLE IF EXISTS answers;
+DROP TABLE IF EXISTS threads;
+DROP TABLE IF EXISTS boards;
+DROP TABLE IF EXISTS favorite_products;
+DROP TABLE IF EXISTS transactions;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS companies;
+DROP TABLE IF EXISTS eizorenraku;
+DROP TABLE IF EXISTS students;
+DROP TABLE IF EXISTS faculty;
+DROP TABLE IF EXISTS favorite_users;
+DROP TABLE IF EXISTS members;
+DROP TABLE IF EXISTS schools;
+
+
+
+
+/* Create Tables */
+
+CREATE TABLE admins
+(
+	id varchar(16) NOT NULL,
+	password char(60),
+	PRIMARY KEY (id)
+);
+
+
+CREATE TABLE answers
+(
+	threads_id int NOT NULL,
+	id int NOT NULL,
+	members_id varchar(255) NOT NULL,
+	comment varchar(255),
+	post_at datetime,
+	delete_at datetime,
+	PRIMARY KEY (threads_id, id)
+);
+
+
+CREATE TABLE boards
+(
+	id int NOT NULL,
+	name varchar(32),
+	PRIMARY KEY (id)
+);
+
+
+CREATE TABLE categories
+(
+	id int NOT NULL,
+	name varchar(255),
+	PRIMARY KEY (id)
+);
+
+
+CREATE TABLE companies
+(
+	id varchar(255) NOT NULL,
+	company varchar(255),
+	name varchar(32),
+	name_kana varchar(32),
+	tel varchar(15),
+	address varchar(255),
+	department varchar(255),
+	url text,
+	comment varchar(255),
+	postal_code char(7),
+	image varchar(255),
+	PRIMARY KEY (id)
+);
+
+
+CREATE TABLE eizorenraku
+(
+	id varchar(255) NOT NULL,
+	members_id varchar(255) NOT NULL,
+	password char(60),
+	create_at datetime,
+	delete_at datetime,
+	PRIMARY KEY (id)
+);
+
+
+CREATE TABLE faculty
+(
+	id int NOT NULL,
+	schools_id int NOT NULL,
+	faculty_name varchar(32),
+	subject varchar(32),
+	PRIMARY KEY (id)
+);
+
+
+CREATE TABLE favorite_products
+(
+	members_id varchar(255) NOT NULL,
+	products_id int NOT NULL,
+	PRIMARY KEY (members_id, products_id)
+);
+
+
+CREATE TABLE favorite_users
+(
+	members_id varchar(255) NOT NULL,
+	favorite_users_id varchar(255) NOT NULL,
+	PRIMARY KEY (members_id, favorite_users_id)
+);
+
+
+CREATE TABLE members
+(
+	id varchar(255) NOT NULL,
+	password char(60),
+	mail varchar(255),
+	delete_at datetime,
+	PRIMARY KEY (id)
+);
+
+
+CREATE TABLE products
+(
+	id int NOT NULL AUTO_INCREMENT,
+	categories_id int NOT NULL,
+	members_id varchar(255) NOT NULL,
+	name varchar(20),
+	price int(10),
+	list_at datetime,
+	delete_at datetime,
+	form int,
+	stock int,
+	image varchar(255),
+	information varchar(255),
+	PRIMARY KEY (id)
+);
+
+
+CREATE TABLE schools
+(
+	id int NOT NULL,
+	name varchar(32),
+	PRIMARY KEY (id)
+);
+
+
+CREATE TABLE students
+(
+	id varchar(255) NOT NULL,
+	dept_id int NOT NULL,
+	adtime varchar(32),
+	name varchar(32),
+	name_kana varchar(32),
+	birthday varchar(32),
+	gender varchar(32),
+	birthplace varchar(255),
+	image varchar(255),
+	comment varchar(255),
+	resume varchar(255),
+	PRIMARY KEY (id)
+);
+
+
+CREATE TABLE threads
+(
+	id int NOT NULL AUTO_INCREMENT,
+	boards_id int NOT NULL,
+	members_id varchar(255) NOT NULL,
+	title varchar(255),
+	create_at datetime,
+	delete_at datetime,
+	PRIMARY KEY (id)
+);
+
+
+CREATE TABLE transactions
+(
+	id int NOT NULL AUTO_INCREMENT,
+	products_id int NOT NULL,
+	members_id varchar(255) NOT NULL,
+	trade_at datetime,
+	price int,
+	stock int,
+	status int,
+	updated_at datetime,
+	PRIMARY KEY (id)
+);
+
+
+
+/* Create Foreign Keys */
+
+ALTER TABLE threads
+	ADD FOREIGN KEY (boards_id)
+	REFERENCES boards (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE products
+	ADD FOREIGN KEY (categories_id)
+	REFERENCES categories (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE students
+	ADD FOREIGN KEY (dept_id)
+	REFERENCES faculty (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE answers
+	ADD FOREIGN KEY (members_id)
+	REFERENCES members (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE eizorenraku
+	ADD FOREIGN KEY (members_id)
+	REFERENCES members (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE favorite_products
+	ADD FOREIGN KEY (members_id)
+	REFERENCES members (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE favorite_users
+	ADD FOREIGN KEY (favorite_users_id)
+	REFERENCES members (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE favorite_users
+	ADD FOREIGN KEY (members_id)
+	REFERENCES members (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE products
+	ADD FOREIGN KEY (members_id)
+	REFERENCES members (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE students
+	ADD FOREIGN KEY (id)
+	REFERENCES members (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+ALTER TABLE companies
+	ADD FOREIGN KEY (id)
+	REFERENCES members (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+
+ALTER TABLE threads
+	ADD FOREIGN KEY (members_id)
+	REFERENCES members (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE transactions
+	ADD FOREIGN KEY (members_id)
+	REFERENCES members (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE favorite_products
+	ADD FOREIGN KEY (products_id)
+	REFERENCES products (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE transactions
+	ADD FOREIGN KEY (products_id)
+	REFERENCES products (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE faculty
+	ADD FOREIGN KEY (schools_id)
+	REFERENCES schools (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE answers
+	ADD FOREIGN KEY (threads_id)
+	REFERENCES threads (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+INSERT INTO schools(id,name) value(1,'HAL');
+INSERT INTO schools(id,name) value(2,'MODE');
+INSERT INTO schools(id,name) value(3,'IKOU');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(11111,1,'IT','高度情報処理');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(11112,1,'IT','WEB');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(12121,1,'CG','CG映像');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(12122,1,'CG','グラフィックデザイン');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(12123,1,'CG','アニメ・イラスト');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(13131,1,'ゲーム','ゲームデザイン');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(13132,1,'ゲーム','ゲーム企画');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(13133,1,'ゲーム','ゲーム制作');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(14141,1,'ミュージック','ミュージック');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(15151,1,'カーデザイン','カーデザイン');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(21211,2,'ファッション','ファッション高度専門士');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(21212,2,'ファッション','ファッションビジネス・テクノロジー');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(22221,2,'ファッションビジネス','ファッションビジネス');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(23231,2,'インテリア','インテリア');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(24241,2,'グラフィック','グラフィック');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(25251,2,'メイク・ネイル','メイクアップ・ネイル');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(26261,2,'ヘアメイク','ヘアメイク・アーティスト');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(26262,2,'ヘアメイク','美容');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(26263,2,'ヘアメイク','美容・通信');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(31311,3,'救急・臨床','臨床工学');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(31312,3,'救急・臨床','救急救命');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(31313,3,'救急・臨床','臨床工学技士');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(32321,3,'看護','高度専門士看護');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(32322,3,'看護','高度看護保険');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(32323,3,'看護','実践看護');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(32324,3,'看護','助産師');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(33331,3,'歯科医療','歯科衛生');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(34341,3,'リハビリテーション','理学療法');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(34342,3,'リハビリテーション','作業療法');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(34343,3,'リハビリテーション','言語聴覚');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(35351,3,'スポーツ','アスレティックトレーナー');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(35352,3,'スポーツ','スポーツトレーナー');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(36361,3,'東洋医療','鍼灸');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(36362,3,'東洋医療','柔道整復');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(37371,3,'福祉','介護福祉');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(37372,3,'福祉','精神保健福祉士');
+INSERT INTO faculty(id,schools_id,faculty_name,subject) value(37373,3,'福祉','社会福祉士');
+
+INSERT INTO boards(id,name) value(1,'質問');
+INSERT INTO boards(id,name) value(2,'企業');
+INSERT INTO boards(id,name) value(3,'リクエスト');
+
+INSERT INTO categories(id,name) VALUES (1,"HAL");
+INSERT INTO categories(id,name) VALUES (2,"MODE");
+INSERT INTO categories(id,name) VALUES (3,"IKOU");
+
+INSERT INTO members(id, password, mail, delete_at) VALUES("00001", "$2y$10$VkuIQaRoSO8bcWQOzIBJ4.8sjmOlxkXnu6jbk9sySWtUL/ujHPyX6", "sample1@gmail.com", NULL);
+INSERT INTO members(id, password, mail, delete_at) VALUES("00002", "$2y$10$YZcNmDdHrcmA6m5t78onLuQys9tFM5jVSBW4yGTTJ67dfMpltpcka", "sample2@gmail.com", NULL);
+INSERT INTO members(id, password, mail, delete_at) VALUES("00003", "$2y$10$jCNRuf3x/lj2eOQr3lE4Ye28uU/SMg3CmvA0voYy1VfRqSGvSstoe", "sample3@gmail.com", NULL);
+INSERT INTO members(id, password, mail, delete_at) VALUES("00004", "$2y$10$EH5dQxnVqyQGvbK8TtW/GuILmLhvAqdQEKESTv5fU2ctZhW0XFVJO", "sample4@gmail.com", NULL);
+INSERT INTO members(id, password, mail, delete_at) VALUES("00005", "$2y$10$lbMtciw3bc0TxzG2URwbm.cWeOqFGwkNQf/NaWvyBwwXjjlr0qHDC", "sample5@gmail.com", NULL);
+INSERT INTO members(id, password, mail, delete_at) VALUES("00006", "$2y$10$YpFlGafcyTDaYw3CV8X2CeQ4wHEHdqBy.kiXG5DzpKBOUGnxwUS6a", "sample6@gmail.com", NULL);
+INSERT INTO members(id, password, mail, delete_at) VALUES("CO00001", "$2y$10$3T5JvIp/8kQv3Q2WZZWsAOhmNrvkEytiSyqt/HjVR73BYYy/9sWui", "sample11@gmail.com", NULL);
+INSERT INTO members(id, password, mail, delete_at) VALUES("CO00002", "$2y$10$NMutgzW/.RGBjbiuMW0ll.zV0xgX.95r80JLP3Z6pf7kqcV4V0Vga", "sample22@gmail.com", NULL);
+
+INSERT INTO students(id, dept_id, adtime, name, name_kana, birthday, gender, birthplace, image, comment, resume) VALUES("00001", 11111, "202004", "春山浩一", "ハルヤマコウイチ", "2000-12-01", "男性", "神奈川県", "default.png", "バックエンドエンジニア目指してます！", "sample.pdf");
+INSERT INTO students(id, dept_id, adtime, name, name_kana, birthday, gender, birthplace, image, comment, resume) VALUES("00002", 11112, "202004", "横山真三", "ヨコヤマシンゾウ", "1998-01-23", "男性", "東京都", "default.png", "よろしくお願いします。", "sample.pdf");
+INSERT INTO students(id, dept_id, adtime, name, name_kana, birthday, gender, birthplace, image, comment, resume) VALUES("00003", 26262, "202004", "横沢奈津子", "ヨコサワナツコ", "1999-05-03", "女性", "栃木県", "default.png", "スタイリスト目指してます！よろしくお願いします。", "sample.pdf");
+INSERT INTO students(id, dept_id, adtime, name, name_kana, birthday, gender, birthplace, image, comment, resume) VALUES("00004", 21211, "202004", "田代誠", "タシロマコト", "1999-09-04", "男性", "福井県", "default.png", "ファッション技術を学んでます。", "sample.pdf");
+INSERT INTO students(id, dept_id, adtime, name, name_kana, birthday, gender, birthplace, image, comment, resume) VALUES("00005", 35351, "202004", "冬川基樹", "フユカワモトキ", "2000-10-08", "男性", "岡山県", "default.png", "スポーツ理論を勉強中です。よろしくお願いします。", "sample.pdf");
+INSERT INTO students(id, dept_id, adtime, name, name_kana, birthday, gender, birthplace, image, comment, resume) VALUES("00006", 36361, "202004", "早川直美", "ハヤカワナオミ", "2000-03-18", "女性", "埼玉県", "default.png", "よろしくお願いします。", "sample.pdf");
+
+INSERT INTO companies(id, company, name, name_kana, tel, address, department, url, image, comment, postal_code) VALUES("CO00001", "A株式会社", "須山翔太郎", "スヤマショウタロウ", "080-xxxx-xxxx", "東京都新宿区", "人事部", "akabusikigaisha.com", "default.png", "新卒採用を積極的に行っています", "xxx-xxxx");
+INSERT INTO companies(id, company, name, name_kana, tel, address, department, url, image, comment, postal_code) VALUES("CO00002", "B株式会社", "加藤直之", "カトウナオユキ", "080-xxxx-xxxx", "東京都中央区", "人事部", "bkabusikigaisha.com", "default.png", "アルバイト募集中です", "xxx-xxxx");
+
+
+
+
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (1, 1, "00001", "自作ロボットアーム", 3000, "2020-12-08 10:00:00", NULL, 1, "HAL1.jpg", "自作のロボットアームです。操作は割と簡単です。");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (2, 1, "00002", "CG画像日本列島", 1200, "2020-12-09 10:00:00", NULL, 1, "HAL2.jpg", "日本列島をベースにして作ったCG画像です。WEBサイトの背景などにお使いください！");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (3, 1, "00002", "ショッピングサイトフォーマット", 1000, "2020-12-10 10:00:00", NULL, 1, "HAL3.png", "ショッピングサイトのフォーマットです。");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (4, 1, "00001", "二足歩行ロボット", 3100, "2020-12-11 10:00:00", NULL, 1, "HAL4.jpg", "二足歩行で動く自在に操作できるロボットです。");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (5, 1, "00002", "CG画像一軒家", 1100, "2020-12-12 10:00:00", NULL, 1, "HAL5.jpg", "近代的な一軒家をCG画像で作りました！");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (6, 1, "00001", "ドローン", 4300, "2020-12-13 10:00:00", NULL, 1, "HAL6.png", "自在に操作可能なドローンです。安全には細心の注意を。");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (7, 1, "00002", "CG画像恐竜", 1060, "2020-12-14 10:00:00", NULL, 1, "HAL7.png", "恐竜の迫力あるCG画像です");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (8, 1, "00002", "世界地図", 1040, "2020-12-15 10:00:00", NULL, 1, "HAL8.png", "世界地図です");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (9, 1, "00002", "WEBサイトフォーマット", 1100, "2020-12-16 10:00:00", NULL, 1, "HAL9.jpg", "WEBサイトのフォーマットです");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (10, 1, "00002", "CG画像車", 1500, "2020-12-17 10:00:00", NULL, 1, "HAL10.jpg", "自然の車のCG画像です！");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (11, 2, "00004", "ヘアセットお団子", 2000, "2020-12-18 10:00:00", NULL, 2, "MODE1.jpg", "お団子のヘアセットです");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (12, 2, "00004", "ネイル", 1030, "2020-12-19 10:00:00", NULL, 2, "MODE2.jpg", "おしゃれなネイルです");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (13, 2, "00004", "ウィッグ金", 1100, "2020-12-20 10:00:00", NULL, 2, "MODE3.jpg", "おしゃれなウィッグ（金髪）です。");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (14, 2, "00003", "マスク", 600, "2020-12-21 10:00:00", NULL, 2, "MODE4.jpg", "おしゃれな模様付きの布マスクです。");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (15, 2, "00004", "ネイル青", 1040, "2020-12-22 10:00:00", NULL, 2, "MODE5.jpg", "おしゃれなネイルです！");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (16, 2, "00004", "ウィッグ紫", 2020, "2020-12-23 10:00:00", NULL, 2, "MODE6.jpg", "カラーのウィッグです");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (17, 2, "00003", "セーター", 2450, "2020-12-24 10:00:00", NULL, 2, "MODE7.jpg", "縞模様のセーターです");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (18, 2, "00003", "裾直し", 2040, "2020-12-25 10:00:00", NULL, 2, "MODE8.jpg", "丈の合わないズボンのすそを直しますｂ");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (19, 2, "00003", "雪だるま", 1020, "2020-12-26 10:00:00", NULL, 2, "MODE9.jpg", "クリスマスの装飾品です！");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (20, 2, "00004", "ウィッグ茶", 1100, "2020-12-27 10:00:00", NULL, 2, "MODE10.png", "おしゃれな茶色のウィッグです！");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (21, 3, "00005", "整体", 1100, "2020-12-27 10:00:00", NULL, 1, "IKO1.jpg", "お体直します！");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (22, 3, "00005", "スポーツメニュー", 1100, "2020-12-27 10:00:00", NULL, 1, "IKO2.jpg", "それぞれに合ったスポーツメニューを作成させていただきます");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (23, 3, "00005", "スポーツサポート", 1500, "2020-12-27 10:00:00", NULL, 1, "IKO3.jpg", "スポーツのコーチングをさせていただきます");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (24, 3, "00006", "鍼灸治療", 1100, "2020-12-27 10:00:00", NULL, 1, "IKO4.jpg", "鍼灸治療をさせていただきます");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (25, 3, "00005", "トレーニングサポート", 2100, "2020-12-27 10:00:00", NULL, 2, "IKO5.jpg", "トレーニングをサポートさせていただきます！");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (26, 3, "00005", "ぽきぽき整体", 2300, "2020-12-27 10:00:00", NULL, 2, "IKO6.jpg", "話題のぽきぽき整体をさせていただきます");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (27, 3, "00005", "ウェイトトレーニングサポート", 1400, "2020-12-27 10:00:00", NULL, 2, "IKO7.jpg", "ウェイトトレーニングの手伝いをさせていただきます。初心者でも安全です。");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (28, 3, "00006", "鍼灸カウンセリング", 200, "2020-12-27 10:00:00", NULL, 2, "IKO8.jpg", "鍼灸治療についての不安を解消させていただきます");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (29, 3, "00005", "栄養カウンセリング", 300, "2020-12-27 10:00:00", NULL, 2, "IKO9.jpg", "一人暮らしの方向け。日々の食事で抱える不安を解消させていただきます。");
+INSERT INTO products(id, categories_id, members_id, name, price, list_at, delete_at, form, image, information) VALUES (30, 3, "00006", "針治療", 2100, "2020-12-27 10:00:00", NULL, 1, "IKO10.jpg", "針治療を行わさせていただきます！");
+
+
+INSERT INTO threads(id,boards_id, members_id, title, create_at, delete_at) value(1, 1, "00001", "分岐構造", "2020-12-27 10:00:00", NULL);
+INSERT INTO threads(id,boards_id, members_id, title, create_at, delete_at) value(2, 2, "CO00001", "企業説明会について", "2020-12-27 10:00:00", NULL);
+INSERT INTO threads(id,boards_id, members_id, title, create_at, delete_at) value(3, 3, "00005", "背景画像リクエスト", "2020-12-27 10:00:00", NULL);
+
+INSERT INTO answers(threads_id,id, members_id, comment, post_at, delete_at) value(1, 1, "00001", "複数の分岐の仕方を教えてください。", "2020-12-27 10:00:00", NULL);
+INSERT INTO answers(threads_id,id, members_id, comment, post_at, delete_at) value(1, 2, "00002", "if else文を使います", "2020-12-27 10:04:00", NULL);
+INSERT INTO answers(threads_id,id, members_id, comment, post_at, delete_at) value(2, 3, "CO00001", "9月24日　zoom企業説明会を予約しています。気軽に参加してください。詳細は公式サイトにて", "2020-12-27 10:04:00", NULL);
+INSERT INTO answers(threads_id,id, members_id, comment, post_at, delete_at) value(3, 4, "00005", "CGを使った山の風景の画像が欲しいです！", "2020-12-27 10:04:00", NULL);
+INSERT INTO answers(threads_id,id, members_id, comment, post_at, delete_at) value(3, 5, "00001", "制作してみますね！", "2020-12-27 10:05:00", NULL);
+INSERT INTO answers(threads_id,id, members_id, comment, post_at, delete_at) value(3, 6, "00005", "ありがとうございます！", "2020-12-27 10:05:00", NULL);
+
+
+INSERT INTO admins(id, password) value("32145", "$2y$10$SdiHseYi6NFmVcgyXo4Mguq62VUNCfOjNRKzckgns21KcWjcpPmFm");
+
+
+
+
+
+
+
+

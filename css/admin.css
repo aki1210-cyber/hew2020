@@ -1,0 +1,153 @@
+@charset "UTF-8";
+body {
+  background-color: #ccc;
+}
+.main{
+    position: absolute;
+    top: 100px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0 auto;
+}
+.wrap{
+  width: 70%;
+  height: 100%;
+  background-color: #fff;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  margin: 0 auto;
+}
+.login_form{
+    text-align: center;
+
+}
+
+.login_form input[type="text"]{
+    border: 1px solid #ccc;
+    font-size: 1.6vw;
+    padding: 8px;
+    margin-bottom: 24px;
+}
+
+.login_form input[type="submit"]{
+    width: 30%;
+    font-size: 1.8vw;
+    text-align: center;
+    padding: 8px;
+    color: #fff;
+    background-color: #F5DF4D;
+}
+
+.form_wrap{
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.form_wrap a{
+    display: block;
+    font-size: 1.2vw;
+    text-decoration: underline;
+}
+
+
+.form_wrap a:hover{
+    cursor: pointer;
+}
+
+.sub{
+    display: none;
+    width: 80%;
+    height: 48%;
+    background-color: white;
+    text-align: center;
+    position: absolute;
+    top:0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    border-radius: 8px;
+    z-index: 2;
+}
+
+.er_message{
+    font-size: 1.2vw;
+    color: red;
+}
+.a_wrap{
+  width: 70%;
+  height: 100%;
+  background-color: #fff;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  margin: 100px auto;
+  clear: both;
+}
+
+.admin_form{
+  font-size: 150%;
+  width: 40%;
+  margin: 0 auto;
+}
+.admin_form input[type="text"]{
+    border: 1px solid #ccc;
+    font-size: 1.4vw;
+    padding: 8px;
+}
+.admin_input{
+  margin-bottom: 15px;
+}
+
+.content_item_box{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 80%;
+    margin: 100px auto;
+    padding: 30px;
+    background-color: #fff;
+}
+
+.delete{
+  color: red;
+}
+.container form button:hover{
+  color: #aaa;
+}
+.admin_form form input[type="submit"]:hover{
+  color: #aaa;
+}
+
+.content_board_box{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 80%;
+    margin: 100px auto;
+    padding: 30px;
+    background-color: #fff;
+}
+
+.user_box{
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 80%;
+  margin: 100px auto;
+  padding: 30px;
+  background-color: #fff;
+}
+.user_box img{
+  float: left;
+}
+.user_box button{
+  margin: 0 0 0 auto;
+}
+.user_infomation{
+  line-height: 1.2;
+  text-align: center;
+}
